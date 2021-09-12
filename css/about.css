@@ -203,10 +203,8 @@ a:focus-visible {
 .content img {
 	width: 40vw;
 	height: auto;
-	margin: 20px;
 	aspect-ratio: 1/1;
 	object-fit: cover;
-	border-radius: 15px;
 }
 
 .circles {
