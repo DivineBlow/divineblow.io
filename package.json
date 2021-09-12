@@ -1,27 +1,28 @@
 {
-  "name": "web",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.html",
-  "scripts": {
-    "start": "parcel index.html"
-  },
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "author": "Sebi",
-  "license": "ISC",
-  "bugs": "",
-  "homepage": "",
-  "devDependencies": {
-    "parcel-bundler": "^1.12.5"
-  },
-  "dependencies": {
-    "gsap": "^3.6.1",
-    "imagesloaded": "^4.1.4",
-    "js": "^0.1.0",
-    "lodash.throttle": "^4.1.1",
-    "splitting": "^1.0.6"
-  }
+	"name": "hero",
+	"version": "1.0.0",
+	"description": "DivineBlow",
+	"main": "index.html",
+	"scripts": {
+		"start": "parcel index.html --port 3000 --open",
+		"build": "parcel build index.html --public-url ./"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DivineBlow/divineblow.io.git"
+	},
+	"author": "Sebi",
+	"license": "ISC",
+	"bugs": "https://github.com/DivineBlow/divineblow.io.git/issues",
+	"homepage": "https://github.com/DivineBlow",
+	"devDependencies": {
+		"parcel-bundler": "^1.12.5"
+	},
+	"dependencies": {
+		"gsap": "^3.6.1",
+		"imagesloaded": "^4.1.4",
+		"js": "^0.1.0",
+		"lodash.throttle": "^4.1.1",
+		"splitting": "^1.0.6"
+	}
 }
