@@ -1,6 +1,6 @@
 # DivineBlow
 
-Animating site using GSAP, WinBox and more interesting interactions by DivineBlow.
+Site using GSAP, WinBox and more interesting interactions by DivineBlow.
 
 ## Installation
 
