@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Emilys+Candy&family=Nova+Flat&family=Poppins:wght@500&display=swap');
 
 *,
 *::after,
@@ -14,21 +14,17 @@
 
 body {
 	--color-text: #a5a5a5;
-	--color-bg: #000000;
+	--color-bg: #010101;
 	--color-link: #ff1493;
 	--color-link-hover: #fff;
 	--color-text-circle-1: #ff1493;
 	--color-text-circle-2: #9932cc;
 	--color-text-circle-3: #605dff;
 	--color-text-circle-4: #5cffef;
-	--font-circle-1: niagara, serif;
-	--font-weight-circle-1: 300;
+	--font-circle-1: 'Emilys Candy', cursive;
 	--font-circle-2: ambroise-firmin-std, serif;
-	--font-weight-circle-2: 300;
 	--font-circle-3: modesto-condensed, serif;
-	--font-weight-circle-3: 400;
-	--font-circle-4: niagara, serif;
-	--font-weight-circle-4: 300;
+	--font-circle-4: 'Nova Flat', cursive;
 	--color-button: #ff1493;
 	--color-text-button: #000000;
 	--color-font-circle: #7b7772;
@@ -36,7 +32,6 @@ body {
 	font-family: "Poppins", sans-serif;
 	color: var(--color-text);
 	background-color: var(--color-bg);
-
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -186,18 +181,13 @@ a:focus-visible {
 }
 
 .about {
+	color: #39ffed;
 	font-size: clamp(1rem, 2vw, 1.4rem);
 	line-height: 1.25;
 	margin: 0 auto;
 	padding: 5em;
 	pointer-events: none;
 	text-align: justify;
-}
-
-.about .glow {
-	color: #ffffff;
-	text-shadow: 0 0 2px #ffffff, 0 0 10px #ffffff, 0 0 20px #39ffed,
-		0 0 30px #39ffed, 0 0 40px #39ffed, 0 0 50px #39ffed;
 }
 
 .content img {
@@ -224,34 +214,27 @@ a:focus-visible {
 }
 
 .circles__text--1 {
-	font-size: 25vmin;
-	font-size: clamp(170px, 25vmin, 180px);
+	font-size: clamp(10rem, 20vmin, 15rem);
 	font-family: var(--font-circle-1);
-	font-weight: var(--font-weight-circle-1);
 	fill: var(--color-text-circle-1);
 }
 
 .circles__text--2 {
-	font-size: 17vmin;
-	font-size: clamp(136px, 17vmin, 153px);
+	/* font-size: clamp(136px, 17vmin, 153px); */
+	font-size: clamp(8rem, 8vmin, 10rem);
 	font-family: var(--font-circle-2);
-	font-weight: var(--font-weight-circle-2);
 	fill: var(--color-text-circle-2);
 }
 
 .circles__text--3 {
-	font-size: 13.5vmin;
-	font-size: clamp(110px, 13.5vmin, 120px);
+	font-size: clamp(6rem, 8vmin, 10rem);
 	font-family: var(--font-circle-3);
-	font-weight: var(--font-weight-circle-3);
 	fill: var(--color-text-circle-3);
 }
 
 .circles__text--4 {
-	font-size: 9.5vmin;
-	font-size: clamp(85px, 9.5vmin, 94px);
+	font-size: clamp(4rem, 6vmin, 10rem);
 	font-family: var(--font-circle-4);
-	font-weight: var(--font-weight-circle-4);
 	fill: var(--color-text-circle-4);
 }
 
@@ -275,8 +258,34 @@ a:focus-visible {
 	outline: 0;
 }
 
-.circular-menu.active .floating-btn {
-	box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.5);
+.circular-menu .floating-btn:after {
+	width: 3.5em;
+	height: 3.5em;
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	border: 4px solid #9932cc;
+	border-radius: 50%;
+	animation-duration: 1.2s;
+	animation-name: intervalHamburgerBorder;
+	animation-iteration-count: infinite;
+}
+
+@keyframes intervalHamburgerBorder {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	80% {
+		transform: scale(1.6);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.6);
+	}
 }
 
 .circular-menu .floating-btn i {
@@ -426,7 +435,7 @@ a:focus-visible {
 	}
 }
 
-@media screen and (max-width: 50em) {
+@media screen and (max-width: 53em) {
 	.content {
 		height: 100%;
 		margin: 0 auto;

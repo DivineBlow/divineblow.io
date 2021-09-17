@@ -123,33 +123,10 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ease = exports.randomNumber = exports.preloadFonts = void 0;
-
-// Preload fonts
-var preloadFonts = function preloadFonts(id) {
-  return new Promise(function (resolve) {
-    WebFont.load({
-      typekit: {
-        id: id
-      },
-      active: resolve
-    });
-  });
-}; // 
-// randomNumber for Intro
-// 
-
-
-exports.preloadFonts = preloadFonts;
-
-var randomNumber = function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}; //
+exports.ease = void 0;
+//
 // ease function for ShapeOverlays
 //
-
-
-exports.randomNumber = randomNumber;
 var ease = {
   exponentialIn: function exponentialIn(t) {
     return t == 0.0 ? t : Math.pow(2.0, 10.0 * (t - 1.0));
@@ -355,7 +332,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62800" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54269" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

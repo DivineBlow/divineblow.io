@@ -1,21 +1,3 @@
-// Preload fonts
-const preloadFonts = (id) => {
-    return new Promise((resolve) => {
-        WebFont.load({
-            typekit: {
-                id: id
-            },
-            active: resolve
-        });
-    });
-};
-
-// 
-// randomNumber for Intro
-// 
-
-const randomNumber = (min,max) => Math.floor(Math.random() * (max - min + 1) + min);
-
 //
 // ease function for ShapeOverlays
 //
@@ -64,8 +46,6 @@ const ease = {
   }
 
 export {
-    preloadFonts,
-    randomNumber,
     ease,
 };
 

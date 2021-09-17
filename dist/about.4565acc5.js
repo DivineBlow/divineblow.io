@@ -117,75 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/utils.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ease = exports.randomNumber = exports.preloadFonts = void 0;
-
-// Preload fonts
-var preloadFonts = function preloadFonts(id) {
-  return new Promise(function (resolve) {
-    WebFont.load({
-      typekit: {
-        id: id
-      },
-      active: resolve
-    });
-  });
-}; // 
-// randomNumber for Intro
-// 
-
-
-exports.preloadFonts = preloadFonts;
-
-var randomNumber = function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}; //
-// ease function for ShapeOverlays
-//
-
-
-exports.randomNumber = randomNumber;
-var ease = {
-  exponentialIn: function exponentialIn(t) {
-    return t == 0.0 ? t : Math.pow(2.0, 10.0 * (t - 1.0));
-  },
-  exponentialOut: function exponentialOut(t) {
-    return t == 1.0 ? t : 1.0 - Math.pow(2.0, -10.0 * t);
-  },
-  exponentialInOut: function exponentialInOut(t) {
-    return t == 0.0 || t == 1.0 ? t : t < 0.5 ? +0.5 * Math.pow(2.0, 20.0 * t - 10.0) : -0.5 * Math.pow(2.0, 10.0 - t * 20.0) + 1.0;
-  },
-  sineOut: function sineOut(t) {
-    var HALF_PI = 1.5707963267948966;
-    return Math.sin(t * HALF_PI);
-  },
-  circularInOut: function circularInOut(t) {
-    return t < 0.5 ? 0.5 * (1.0 - Math.sqrt(1.0 - 4.0 * t * t)) : 0.5 * (Math.sqrt((3.0 - 2.0 * t) * (2.0 * t - 1.0)) + 1.0);
-  },
-  cubicIn: function cubicIn(t) {
-    return t * t * t;
-  },
-  cubicOut: function cubicOut(t) {
-    var f = t - 1.0;
-    return f * f * f + 1.0;
-  },
-  cubicInOut: function cubicInOut(t) {
-    return t < 0.5 ? 4.0 * t * t * t : 0.5 * Math.pow(2.0 * t - 2.0, 3.0) + 1.0;
-  },
-  quadraticOut: function quadraticOut(t) {
-    return -t * (t - 2.0);
-  },
-  quarticOut: function quarticOut(t) {
-    return Math.pow(t - 1.0, 3.0) * (1.0 - t) + 1.0;
-  }
-};
-exports.ease = ease;
-},{}],"node_modules/gsap/gsap-core.js":[function(require,module,exports) {
+})({"node_modules/gsap/gsap-core.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5758,8 +5690,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Intro = void 0;
 
-var _utils = require("./utils");
-
 var _gsap = require("gsap");
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -5960,21 +5890,15 @@ var Intro = /*#__PURE__*/function () {
 }();
 
 exports.Intro = Intro;
-},{"./utils":"js/utils.js","gsap":"node_modules/gsap/index.js"}],"js/about.js":[function(require,module,exports) {
+},{"gsap":"node_modules/gsap/index.js"}],"js/about.js":[function(require,module,exports) {
 "use strict";
-
-var _utils = require("./utils");
 
 var _intro = require("./intro");
 
-var intro = new _intro.Intro(document.querySelector('.circles')); // Preload images and fonts
-
-Promise.all([(0, _utils.preloadFonts)('kxo3pgz')]).then(function () {
-  // remove loader (loading class)
-  document.body.classList.remove('loading'); // start intro
-
-  intro.start();
-}); // Circular menu
+// Start intro
+var intro = new _intro.Intro(document.querySelector('.circles'));
+document.body.classList.remove('loading');
+intro.start(); // Circular menu
 
 var buttons = document.querySelectorAll(".menu__item");
 var activeButton = document.querySelector(".menu__item.active");
@@ -6028,7 +5952,7 @@ info.addEventListener('click', function () {
     resize: true
   });
 });
-},{"./utils":"js/utils.js","./intro":"js/intro.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./intro":"js/intro.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -6056,7 +5980,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62800" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54269" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

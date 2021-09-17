@@ -1,15 +1,10 @@
-import { preloadFonts } from './utils';
 import { Intro } from './intro';
 
+// Start intro
 const intro = new Intro(document.querySelector('.circles'));
+document.body.classList.remove('loading');
+intro.start();
 
-// Preload images and fonts
-Promise.all([preloadFonts('kxo3pgz')]).then(() => {
-    // remove loader (loading class)
-    document.body.classList.remove('loading');
-    // start intro
-    intro.start();
-});
 
 // Circular menu
 const buttons = document.querySelectorAll(".menu__item");
