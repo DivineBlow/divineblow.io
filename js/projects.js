@@ -206,7 +206,6 @@ import imagesLoaded from "imagesloaded";
             itemElems.push(this.contentItem.querySelector('.box__title'));
             itemElems.push(this.contentItem.querySelector('.box__text'));
             itemElems.push(this.contentItem.querySelector('.box__deco'));
-            itemElems.push(this.contentItem.querySelector('.overlay__content'));
             
             for (let el of itemElems) {
                 if ( el == null ) continue;

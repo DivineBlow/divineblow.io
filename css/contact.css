@@ -12,6 +12,11 @@
 	--color-bg: #333;
 }
 
+::selection {
+	background-color: rgb(34, 34, 34);
+	color: var(--text-color);
+}
+
 body {
 	font-family: "Orbitron", sans-serif;
 	background: var(--color-bg);
