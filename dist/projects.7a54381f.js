@@ -938,7 +938,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         itemElems.push(this.contentItem.querySelector('.box__title'));
         itemElems.push(this.contentItem.querySelector('.box__text'));
         itemElems.push(this.contentItem.querySelector('.box__deco'));
-        itemElems.push(this.contentItem.querySelector('.overlay__content'));
 
         for (var _i = 0, _itemElems = itemElems; _i < _itemElems.length; _i++) {
           var el = _itemElems[_i];
@@ -1163,7 +1162,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54269" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61655" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
