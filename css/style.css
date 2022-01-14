@@ -24,8 +24,7 @@ body {
 	--color-link-hover: rgb(58, 49, 49);
 	color: var(--color-text);
 	background-color: var(--color-bg);
-	font-family: Nunito, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
-		sans-serif;
+	font-family: 'Nunito', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -166,7 +165,7 @@ a:focus-visible {
 	position: relative;
 	justify-content: flex-start;
 	align-items: center;
-	font-family: Montserrat, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	min-height: 100vh;
 	margin: 0;
 	padding: 0;
@@ -211,13 +210,13 @@ a:focus-visible {
 .hero__heading .country {
 	font-size: clamp(1rem, 5vw, 3rem);
 	letter-spacing: 0.15rem;
-	filter: drop-shadow(0 0 5rem var(--primary));
 }
 
 .hero--primary .hero__heading {
-	-webkit-text-stroke: 1px var(--primary);
-	color: var(--primary);
-	filter: drop-shadow(0 0 5rem var(--primary));
+	font-family: Arial, Helvetica, sans-serif;
+	-webkit-text-stroke: 2px var(--primary);
+	color: transparent;
+	filter: drop-shadow(0 0 .2rem var(--primary));
 }
 
 .hero--secondary .hero__heading {
