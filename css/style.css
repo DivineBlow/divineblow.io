@@ -211,13 +211,13 @@ a:focus-visible {
 .hero__heading .country {
 	font-size: clamp(1rem, 5vw, 3rem);
 	letter-spacing: 0.15rem;
-	filter: drop-shadow(0 0 5rem var(--primary));
+	filter: drop-shadow(0 0 6rem var(--primary));
 }
 
 .hero--primary .hero__heading {
 	-webkit-text-stroke: 1px var(--primary);
 	color: var(--primary);
-	filter: drop-shadow(0 0 5rem var(--primary));
+	filter: drop-shadow(0 0 6rem var(--primary));
 }
 
 .hero--secondary .hero__heading {
