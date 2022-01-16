@@ -210,6 +210,7 @@ a:focus-visible {
 .hero__heading .country {
 	font-size: clamp(1rem, 5vw, 3rem);
 	letter-spacing: 0.15rem;
+<<<<<<< HEAD
 }
 
 .hero--primary .hero__heading {
@@ -217,6 +218,15 @@ a:focus-visible {
 	-webkit-text-stroke: 2px var(--primary);
 	color: transparent;
 	filter: drop-shadow(0 0 .2rem var(--primary));
+=======
+	filter: drop-shadow(0 0 6rem var(--primary));
+}
+
+.hero--primary .hero__heading {
+	-webkit-text-stroke: 1px var(--primary);
+	color: var(--primary);
+	filter: drop-shadow(0 0 6rem var(--primary));
+>>>>>>> bbc70b90a902826b82e7998544c38dce572ea1d2
 }
 
 .hero--secondary .hero__heading {
