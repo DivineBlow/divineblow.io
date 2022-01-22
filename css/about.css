@@ -256,7 +256,6 @@ a:focus-visible {
 }
 
 .circles__text--2 {
-	/* font-size: clamp(136px, 17vmin, 153px); */
 	font-size: clamp(8rem, 8vmin, 10rem);
 	font-family: var(--font-circle-2);
 	fill: var(--color-text-circle-2);

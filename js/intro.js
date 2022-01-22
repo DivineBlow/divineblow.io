@@ -42,7 +42,7 @@ export class Intro {
                 ease: 'expo',
                 scale: 1.15,
                 rotation: i => i%2 ? '-=90' : '+=90',
-                opacity: 0,
+                opacity: 0.4,
                 
             });
         };
