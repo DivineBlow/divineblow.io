@@ -5720,13 +5720,10 @@ var Intro = /*#__PURE__*/function () {
   function Intro(el) {
     _classCallCheck(this, Intro);
 
-    // the SVG element
     this.DOM = {
       el: el
-    }; // SVG texts
-
-    this.DOM.circleText = _toConsumableArray(this.DOM.el.querySelectorAll('text.circles__text')); // total
-
+    };
+    this.DOM.circleText = _toConsumableArray(this.DOM.el.querySelectorAll('text.circles__text'));
     this.circleTextTotal = this.DOM.circleText.length;
     this.setup();
   }
@@ -5734,17 +5731,13 @@ var Intro = /*#__PURE__*/function () {
   _createClass(Intro, [{
     key: "setup",
     value: function setup() {
-      // need to set the transform origin
-      // need to set the transform origin in the center
       _gsap.gsap.set(this.DOM.circleText, {
         transformOrigin: '50% 50%'
-      }); // hide on start
-
+      });
 
       _gsap.gsap.set([this.DOM.circleText, DOM.content.children], {
         opacity: 0
-      }); // don't allow to hover
-
+      });
 
       _gsap.gsap.set(DOM.enterCtrl, {
         pointerEvents: 'none'
@@ -5761,40 +5754,39 @@ var Intro = /*#__PURE__*/function () {
         _gsap.gsap.killTweensOf([DOM.enterBackground, _this.DOM.circleText]);
 
         _gsap.gsap.to(DOM.enterBackground, {
-          duration: 1,
+          duration: 1.3,
           ease: 'expo',
           scale: 1.4
         });
 
         _gsap.gsap.to(_this.DOM.circleText, {
-          duration: 1,
+          duration: 0.5,
           ease: 'expo',
-          scale: 1.15,
-          rotation: function rotation(i) {
-            return i % 2 ? '-=90' : '+=90';
-          },
-          opacity: 0.4
+          rotation: '+=120',
+          scale: 0.7,
+          opacity: 0.2,
+          stagger: {
+            amount: -0.15
+          }
         });
       };
 
       this.enterMouseLeaveEv = function () {
-        // gsap.killTweensOf([DOM.enterBackground,this.DOM.circleText]);
+        //gsap.killTweensOf([DOM.enterBackground,this.DOM.circleText]);
         _gsap.gsap.to(DOM.enterBackground, {
-          duration: 1,
-          ease: 'expo',
+          duration: 2,
+          ease: 'elastic.out(1, 0.4)',
           scale: 1
         });
 
         _gsap.gsap.to(_this.DOM.circleText, {
-          duration: 1,
-          ease: 'expo',
+          duration: 2,
+          ease: 'elastic.out(1, 0.4)',
           scale: 1,
-          rotation: function rotation(i) {
-            return i % 2 ? '+=120' : '-=120';
-          },
+          rotation: '-=120',
           opacity: 1,
           stagger: {
-            amount: -0.2
+            amount: 0.15
           }
         });
       };
@@ -5811,18 +5803,14 @@ var Intro = /*#__PURE__*/function () {
   }, {
     key: "start",
     value: function start() {
-      this.startTL = _gsap.gsap.timeline().addLabel('start', 0) // rotation for all texts
-      .to(this.DOM.circleText, {
+      this.startTL = _gsap.gsap.timeline().addLabel('start', 0).to(this.DOM.circleText, {
         duration: 3,
         ease: 'expo.inOut',
-        rotation: function rotation(i) {
-          return i % 2 ? 90 : -90;
-        },
+        rotation: 90,
         stagger: {
           amount: 0.4
         }
-      }, 'start') // scale in the texts & enter button and fade them in
-      .to([this.DOM.circleText, DOM.enterCtrl], {
+      }, 'start').to([this.DOM.circleText, DOM.enterCtrl], {
         duration: 3,
         ease: 'expo.inOut',
         startAt: {
@@ -5834,8 +5822,7 @@ var Intro = /*#__PURE__*/function () {
         stagger: {
           amount: 0.4
         }
-      }, 'start') // at start+1 allow the hover over the enter ctrl
-      .add(function () {
+      }, 'start').add(function () {
         _gsap.gsap.set(DOM.enterCtrl, {
           pointerEvents: 'auto'
         });
@@ -5845,13 +5832,12 @@ var Intro = /*#__PURE__*/function () {
     key: "enter",
     value: function enter() {
       this.startTL.kill();
+      DOM.enterCtrl.removeEventListener('mouseenter', this.enterMouseEnterEv);
+      DOM.enterCtrl.removeEventListener('mouseleave', this.enterMouseLeaveEv);
 
       _gsap.gsap.set(DOM.enterCtrl, {
         pointerEvents: 'none'
       });
-
-      DOM.enterCtrl.removeEventListener('mouseenter', this.enterMouseEnterEv);
-      DOM.enterCtrl.removeEventListener('mouseleave', this.enterMouseLeaveEv);
 
       _gsap.gsap.set([DOM.content], {
         opacity: 1
@@ -5865,24 +5851,25 @@ var Intro = /*#__PURE__*/function () {
       }, 'start').to(this.DOM.circleText, {
         duration: 0.8,
         ease: 'back.in',
-        scale: 0,
+        scale: 1.6,
         opacity: 0,
+        rotation: '-=20',
         stagger: {
-          amount: -0.4
+          amount: 0.3
         }
       }, 'start').to([DOM.content.children], {
-        duration: 0.9,
+        duration: 0.8,
         ease: 'back.out',
         startAt: {
           opacity: 0,
-          scale: 1.2
+          scale: 0.8
         },
         scale: 1,
         opacity: 1,
         stagger: {
-          amount: 0.3
+          amount: 0.2
         }
-      }, 'start+=1.3');
+      }, 'start+=1');
     }
   }]);
 
@@ -5980,7 +5967,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60561" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57850" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
