@@ -5884,8 +5884,10 @@ var _intro = require("./intro");
 
 // Start intro
 var intro = new _intro.Intro(document.querySelector('.circles'));
-document.body.classList.remove('loading');
-intro.start(); // Circular menu
+setTimeout(function () {
+  document.body.classList.remove('loading');
+  intro.start();
+}, 2000); // Circular menu
 
 var buttons = document.querySelectorAll(".menu__item");
 var activeButton = document.querySelector(".menu__item.active");
@@ -5967,7 +5969,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51957" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54997" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -10,11 +10,38 @@
 	--text-color: #00aa00;
 	--color: #fff;
 	--color-bg: #333;
+	--bg: #090e17;
 }
 
 ::selection {
 	background-color: rgb(34, 34, 34);
 	color: var(--text-color);
+}
+
+/* Page Loader */
+.js .loading::before {
+	content: "";
+	position: fixed;
+	z-index: 100000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--bg);
+}
+
+.js .loading::after {
+	content: "";
+	position: fixed;
+	z-index: 100000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: url("../img/loader.gif") no-repeat center;
 }
 
 body {

@@ -2,8 +2,10 @@ import { Intro } from './intro';
 
 // Start intro
 const intro = new Intro(document.querySelector('.circles'));
-document.body.classList.remove('loading');
-intro.start();
+setTimeout(() => {
+    document.body.classList.remove('loading');
+    intro.start();
+}, 2000)
 
 
 // Circular menu

@@ -5682,7 +5682,293 @@ TweenMaxWithCSS = gsapWithCSS.core.Tween;
 
 exports.TweenMax = TweenMaxWithCSS;
 exports.default = exports.gsap = gsapWithCSS;
-},{"./gsap-core.js":"node_modules/gsap/gsap-core.js","./CSSPlugin.js":"node_modules/gsap/CSSPlugin.js"}],"node_modules/splitting/dist/splitting.js":[function(require,module,exports) {
+},{"./gsap-core.js":"node_modules/gsap/gsap-core.js","./CSSPlugin.js":"node_modules/gsap/CSSPlugin.js"}],"node_modules/gsap/utils/strings.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getText = getText;
+exports.splitInnerHTML = splitInnerHTML;
+exports.emojiSafeSplit = emojiSafeSplit;
+exports.emojiExp = void 0;
+
+/*!
+ * strings: 3.7.1
+ * https://greensock.com
+ *
+ * Copyright 2008-2021, GreenSock. All rights reserved.
+ * Subject to the terms at https://greensock.com/standard-license or for
+ * Club GreenSock members, the agreement issued with that membership.
+ * @author: Jack Doyle, jack@greensock.com
+*/
+
+/* eslint-disable */
+var _trimExp = /(^\s+|\s+$)/g;
+var emojiExp = /([\uD800-\uDBFF][\uDC00-\uDFFF](?:[\u200D\uFE0F][\uD800-\uDBFF][\uDC00-\uDFFF]){2,}|\uD83D\uDC69(?:\u200D(?:(?:\uD83D\uDC69\u200D)?\uD83D\uDC67|(?:\uD83D\uDC69\u200D)?\uD83D\uDC66)|\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83C\uDFF3\uFE0F\u200D\uD83C\uDF08|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDD6-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642]\uFE0F|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC6F\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3C-\uDD3E\uDDD6-\uDDDF])\u200D[\u2640\u2642]\uFE0F|\uD83C\uDDFD\uD83C\uDDF0|\uD83C\uDDF6\uD83C\uDDE6|\uD83C\uDDF4\uD83C\uDDF2|\uD83C\uDDE9(?:\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF])|\uD83C\uDDF7(?:\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC])|\uD83C\uDDE8(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF5\uDDF7\uDDFA-\uDDFF])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uFE0F\u200D[\u2640\u2642]|(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642])\uFE0F|(?:\uD83D\uDC41\uFE0F\u200D\uD83D\uDDE8|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\uD83D\uDC69\u200D[\u2695\u2696\u2708]|\uD83D\uDC68(?:(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\u200D[\u2695\u2696\u2708]))\uFE0F|\uD83C\uDDF2(?:\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF])|\uD83D\uDC69\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D(?:\uD83D[\uDC68\uDC69])|\uD83D[\uDC68\uDC69]))|\uD83C\uDDF1(?:\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE])|\uD83C\uDDEF(?:\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5])|\uD83C\uDDED(?:\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA])|\uD83C\uDDEB(?:\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7])|[#\*0-9]\uFE0F\u20E3|\uD83C\uDDE7(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF])|\uD83C\uDDE6(?:\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF])|\uD83C\uDDFF(?:\uD83C[\uDDE6\uDDF2\uDDFC])|\uD83C\uDDF5(?:\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE])|\uD83C\uDDFB(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA])|\uD83C\uDDF3(?:\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF])|\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62(?:\uDB40\uDC77\uDB40\uDC6C\uDB40\uDC73|\uDB40\uDC73\uDB40\uDC63\uDB40\uDC74|\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67)\uDB40\uDC7F|\uD83D\uDC68(?:\u200D(?:\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D)?\uD83D\uDC68|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92])|(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]))|\uD83C\uDDF8(?:\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF])|\uD83C\uDDF0(?:\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF])|\uD83C\uDDFE(?:\uD83C[\uDDEA\uDDF9])|\uD83C\uDDEE(?:\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9])|\uD83C\uDDF9(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF])|\uD83C\uDDEC(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE])|\uD83C\uDDFA(?:\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF])|\uD83C\uDDEA(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA])|\uD83C\uDDFC(?:\uD83C[\uDDEB\uDDF8])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uD83C[\uDFFB-\uDFFF])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDD6-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])|(?:[\u261D\u270A-\u270D]|\uD83C[\uDF85\uDFC2\uDFC7]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC70\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDCAA\uDD74\uDD7A\uDD90\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD30-\uDD36\uDDD1-\uDDD5])(?:\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC68(?:\u200D(?:(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66)|\uD83C[\uDFFB-\uDFFF])|(?:[\u261D\u26F9\u270A-\u270D]|\uD83C[\uDF85\uDFC2-\uDFC4\uDFC7\uDFCA-\uDFCC]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66-\uDC69\uDC6E\uDC70-\uDC78\uDC7C\uDC81-\uDC83\uDC85-\uDC87\uDCAA\uDD74\uDD75\uDD7A\uDD90\uDD95\uDD96\uDE45-\uDE47\uDE4B-\uDE4F\uDEA3\uDEB4-\uDEB6\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD26\uDD30-\uDD39\uDD3D\uDD3E\uDDD1-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])?|(?:[\u231A\u231B\u23E9-\u23EC\u23F0\u23F3\u25FD\u25FE\u2614\u2615\u2648-\u2653\u267F\u2693\u26A1\u26AA\u26AB\u26BD\u26BE\u26C4\u26C5\u26CE\u26D4\u26EA\u26F2\u26F3\u26F5\u26FA\u26FD\u2705\u270A\u270B\u2728\u274C\u274E\u2753-\u2755\u2757\u2795-\u2797\u27B0\u27BF\u2B1B\u2B1C\u2B50\u2B55]|\uD83C[\uDC04\uDCCF\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE1A\uDE2F\uDE32-\uDE36\uDE38-\uDE3A\uDE50\uDE51\uDF00-\uDF20\uDF2D-\uDF35\uDF37-\uDF7C\uDF7E-\uDF93\uDFA0-\uDFCA\uDFCF-\uDFD3\uDFE0-\uDFF0\uDFF4\uDFF8-\uDFFF]|\uD83D[\uDC00-\uDC3E\uDC40\uDC42-\uDCFC\uDCFF-\uDD3D\uDD4B-\uDD4E\uDD50-\uDD67\uDD7A\uDD95\uDD96\uDDA4\uDDFB-\uDE4F\uDE80-\uDEC5\uDECC\uDED0-\uDED2\uDEEB\uDEEC\uDEF4-\uDEF8]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD4C\uDD50-\uDD6B\uDD80-\uDD97\uDDC0\uDDD0-\uDDE6])|(?:[#\*0-9\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2640\u2642\u2648-\u2653\u2660\u2663\u2665\u2666\u2668\u267B\u267F\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303D\u3297\u3299]|\uD83C[\uDC04\uDCCF\uDD70\uDD71\uDD7E\uDD7F\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE02\uDE1A\uDE2F\uDE32-\uDE3A\uDE50\uDE51\uDF00-\uDF21\uDF24-\uDF93\uDF96\uDF97\uDF99-\uDF9B\uDF9E-\uDFF0\uDFF3-\uDFF5\uDFF7-\uDFFF]|\uD83D[\uDC00-\uDCFD\uDCFF-\uDD3D\uDD49-\uDD4E\uDD50-\uDD67\uDD6F\uDD70\uDD73-\uDD7A\uDD87\uDD8A-\uDD8D\uDD90\uDD95\uDD96\uDDA4\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA-\uDE4F\uDE80-\uDEC5\uDECB-\uDED2\uDEE0-\uDEE5\uDEE9\uDEEB\uDEEC\uDEF0\uDEF3-\uDEF8]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD4C\uDD50-\uDD6B\uDD80-\uDD97\uDDC0\uDDD0-\uDDE6])\uFE0F)/;
+exports.emojiExp = emojiExp;
+
+function getText(e) {
+  var type = e.nodeType,
+      result = "";
+
+  if (type === 1 || type === 9 || type === 11) {
+    if (typeof e.textContent === "string") {
+      return e.textContent;
+    } else {
+      for (e = e.firstChild; e; e = e.nextSibling) {
+        result += getText(e);
+      }
+    }
+  } else if (type === 3 || type === 4) {
+    return e.nodeValue;
+  }
+
+  return result;
+}
+
+function splitInnerHTML(element, delimiter, trim) {
+  var node = element.firstChild,
+      result = [];
+
+  while (node) {
+    if (node.nodeType === 3) {
+      result.push.apply(result, emojiSafeSplit((node.nodeValue + "").replace(/^\n+/g, "").replace(/\s+/g, " "), delimiter, trim));
+    } else if ((node.nodeName + "").toLowerCase() === "br") {
+      result[result.length - 1] += "<br>";
+    } else {
+      result.push(node.outerHTML);
+    }
+
+    node = node.nextSibling;
+  }
+
+  return result;
+}
+/*
+//smaller kb version that only handles the simpler emoji's, which is often perfectly adequate.
+
+let _emoji = "[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2694-\u2697]|\uD83E[\uDD10-\uDD5D]|[\uD800-\uDBFF][\uDC00-\uDFFF]",
+	_emojiExp = new RegExp(_emoji),
+	_emojiAndCharsExp = new RegExp(_emoji + "|.", "g"),
+	_emojiSafeSplit = (text, delimiter, trim) => {
+		if (trim) {
+			text = text.replace(_trimExp, "");
+		}
+		return ((delimiter === "" || !delimiter) && _emojiExp.test(text)) ? text.match(_emojiAndCharsExp) : text.split(delimiter || "");
+	};
+ */
+
+
+function emojiSafeSplit(text, delimiter, trim) {
+  text += ""; // make sure it's cast as a string. Someone may pass in a number.
+
+  if (trim) {
+    text = text.replace(_trimExp, "");
+  }
+
+  if (delimiter && delimiter !== "") {
+    return text.replace(/>/g, "&gt;").replace(/</g, "&lt;").split(delimiter);
+  }
+
+  var result = [],
+      l = text.length,
+      i = 0,
+      j,
+      character;
+
+  for (; i < l; i++) {
+    character = text.charAt(i);
+
+    if (character.charCodeAt(0) >= 0xD800 && character.charCodeAt(0) <= 0xDBFF || text.charCodeAt(i + 1) >= 0xFE00 && text.charCodeAt(i + 1) <= 0xFE0F) {
+      //special emoji characters use 2 or 4 unicode characters that we must keep together.
+      j = ((text.substr(i, 12).split(emojiExp) || [])[1] || "").length || 2;
+      character = text.substr(i, j);
+      result.emoji = 1;
+      i += j - 1;
+    }
+
+    result.push(character === ">" ? "&gt;" : character === "<" ? "&lt;" : character);
+  }
+
+  return result;
+}
+},{}],"node_modules/gsap/TextPlugin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.TextPlugin = void 0;
+
+var _strings = require("./utils/strings.js");
+
+/*!
+ * TextPlugin 3.7.1
+ * https://greensock.com
+ *
+ * @license Copyright 2008-2021, GreenSock. All rights reserved.
+ * Subject to the terms at https://greensock.com/standard-license or for
+ * Club GreenSock members, the agreement issued with that membership.
+ * @author: Jack Doyle, jack@greensock.com
+*/
+
+/* eslint-disable */
+var gsap,
+    _tempDiv,
+    _getGSAP = function _getGSAP() {
+  return gsap || typeof window !== "undefined" && (gsap = window.gsap) && gsap.registerPlugin && gsap;
+};
+
+var TextPlugin = {
+  version: "3.7.1",
+  name: "text",
+  init: function init(target, value, tween) {
+    var i = target.nodeName.toUpperCase(),
+        data = this,
+        _short,
+        text,
+        original,
+        j,
+        condensedText,
+        condensedOriginal,
+        aggregate,
+        s;
+
+    data.svg = target.getBBox && (i === "TEXT" || i === "TSPAN");
+
+    if (!("innerHTML" in target) && !data.svg) {
+      return false;
+    }
+
+    data.target = target;
+
+    if (typeof value !== "object") {
+      value = {
+        value: value
+      };
+    }
+
+    if (!("value" in value)) {
+      data.text = data.original = [""];
+      return;
+    }
+
+    data.delimiter = value.delimiter || "";
+    original = (0, _strings.splitInnerHTML)(target, data.delimiter);
+
+    if (!_tempDiv) {
+      _tempDiv = document.createElement("div");
+    }
+
+    _tempDiv.innerHTML = value.value;
+    text = (0, _strings.splitInnerHTML)(_tempDiv, data.delimiter);
+    data.from = tween._from;
+
+    if (data.from) {
+      i = original;
+      original = text;
+      text = i;
+    }
+
+    data.hasClass = !!(value.newClass || value.oldClass);
+    data.newClass = value.newClass;
+    data.oldClass = value.oldClass;
+    i = original.length - text.length;
+    _short = i < 0 ? original : text;
+    data.fillChar = value.fillChar || (value.padSpace ? "&nbsp;" : "");
+
+    if (i < 0) {
+      i = -i;
+    }
+
+    while (--i > -1) {
+      _short.push(data.fillChar);
+    }
+
+    if (value.type === "diff") {
+      j = 0;
+      condensedText = [];
+      condensedOriginal = [];
+      aggregate = "";
+
+      for (i = 0; i < text.length; i++) {
+        s = text[i];
+
+        if (s === original[i]) {
+          aggregate += s;
+        } else {
+          condensedText[j] = aggregate + s;
+          condensedOriginal[j++] = aggregate + original[i];
+          aggregate = "";
+        }
+      }
+
+      text = condensedText;
+      original = condensedOriginal;
+
+      if (aggregate) {
+        text.push(aggregate);
+        original.push(aggregate);
+      }
+    }
+
+    if (value.speed) {
+      tween.duration(Math.min(0.05 / value.speed * _short.length, value.maxDuration || 9999));
+    }
+
+    this.original = original;
+    this.text = text;
+
+    this._props.push("text");
+  },
+  render: function render(ratio, data) {
+    if (ratio > 1) {
+      ratio = 1;
+    } else if (ratio < 0) {
+      ratio = 0;
+    }
+
+    if (data.from) {
+      ratio = 1 - ratio;
+    }
+
+    var text = data.text,
+        hasClass = data.hasClass,
+        newClass = data.newClass,
+        oldClass = data.oldClass,
+        delimiter = data.delimiter,
+        target = data.target,
+        fillChar = data.fillChar,
+        original = data.original,
+        l = text.length,
+        i = ratio * l + 0.5 | 0,
+        applyNew,
+        applyOld,
+        str;
+
+    if (hasClass) {
+      applyNew = newClass && i;
+      applyOld = oldClass && i !== l;
+      str = (applyNew ? "<span class='" + newClass + "'>" : "") + text.slice(0, i).join(delimiter) + (applyNew ? "</span>" : "") + (applyOld ? "<span class='" + oldClass + "'>" : "") + delimiter + original.slice(i).join(delimiter) + (applyOld ? "</span>" : "");
+    } else {
+      str = text.slice(0, i).join(delimiter) + delimiter + original.slice(i).join(delimiter);
+    }
+
+    if (data.svg) {
+      //SVG text elements don't have an "innerHTML" in Microsoft browsers.
+      target.textContent = str;
+    } else {
+      target.innerHTML = fillChar === "&nbsp;" && ~str.indexOf("  ") ? str.split("  ").join("&nbsp;&nbsp;") : str;
+    }
+  }
+};
+exports.default = exports.TextPlugin = TextPlugin;
+TextPlugin.splitInnerHTML = _strings.splitInnerHTML;
+TextPlugin.emojiSafeSplit = _strings.emojiSafeSplit;
+TextPlugin.getText = _strings.getText;
+_getGSAP() && gsap.registerPlugin(TextPlugin);
+},{"./utils/strings.js":"node_modules/gsap/utils/strings.js"}],"node_modules/splitting/dist/splitting.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 (function (global, factory) {
@@ -6624,76 +6910,299 @@ function toNumber(value) {
 
 module.exports = throttle;
 
-},{}],"js/index.js":[function(require,module,exports) {
+},{}],"js/utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getMousePos = exports.lerp = exports.ease = void 0;
+
+// Linear interpolation
+var lerp = function lerp(a, b, n) {
+  return (1 - n) * a + n * b;
+}; // Gets the mouse position
+
+
+exports.lerp = lerp;
+
+var getMousePos = function getMousePos(e) {
+  return {
+    x: e.clientX,
+    y: e.clientY
+  };
+}; //
+// ease function for ShapeOverlays
+//
+
+
+exports.getMousePos = getMousePos;
+var ease = {
+  exponentialIn: function exponentialIn(t) {
+    return t == 0.0 ? t : Math.pow(2.0, 10.0 * (t - 1.0));
+  },
+  exponentialOut: function exponentialOut(t) {
+    return t == 1.0 ? t : 1.0 - Math.pow(2.0, -10.0 * t);
+  },
+  exponentialInOut: function exponentialInOut(t) {
+    return t == 0.0 || t == 1.0 ? t : t < 0.5 ? +0.5 * Math.pow(2.0, 20.0 * t - 10.0) : -0.5 * Math.pow(2.0, 10.0 - t * 20.0) + 1.0;
+  },
+  sineOut: function sineOut(t) {
+    var HALF_PI = 1.5707963267948966;
+    return Math.sin(t * HALF_PI);
+  },
+  circularInOut: function circularInOut(t) {
+    return t < 0.5 ? 0.5 * (1.0 - Math.sqrt(1.0 - 4.0 * t * t)) : 0.5 * (Math.sqrt((3.0 - 2.0 * t) * (2.0 * t - 1.0)) + 1.0);
+  },
+  cubicIn: function cubicIn(t) {
+    return t * t * t;
+  },
+  cubicOut: function cubicOut(t) {
+    var f = t - 1.0;
+    return f * f * f + 1.0;
+  },
+  cubicInOut: function cubicInOut(t) {
+    return t < 0.5 ? 4.0 * t * t * t : 0.5 * Math.pow(2.0 * t - 2.0, 3.0) + 1.0;
+  },
+  quadraticOut: function quadraticOut(t) {
+    return -t * (t - 2.0);
+  },
+  quarticOut: function quarticOut(t) {
+    return Math.pow(t - 1.0, 3.0) * (1.0 - t) + 1.0;
+  }
+};
+exports.ease = ease;
+},{}],"js/cursor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _gsap = require("gsap");
+
+var _utils = require("./utils");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+// Track the mouse position
+var mouse = {
+  x: 0,
+  y: 0
+};
+window.addEventListener("mousemove", function (ev) {
+  return mouse = (0, _utils.getMousePos)(ev);
+});
+
+var Cursor = /*#__PURE__*/function () {
+  function Cursor(el) {
+    var _this = this;
+
+    _classCallCheck(this, Cursor);
+
+    this.DOM = {
+      el: el
+    };
+    this.DOM.el.style.opacity = 0;
+    this.bounds = this.DOM.el.getBoundingClientRect();
+    this.renderedStyles = {
+      tx: {
+        previous: 0,
+        current: 0,
+        amt: 0.2
+      },
+      ty: {
+        previous: 0,
+        current: 0,
+        amt: 0.2
+      },
+      scale: {
+        previous: 1,
+        current: 1,
+        amt: 0.15
+      },
+      opacity: {
+        previous: 1,
+        current: 1,
+        amt: 0.1
+      }
+    };
+
+    this.onMouseMoveEv = function () {
+      _this.renderedStyles.tx.previous = _this.renderedStyles.tx.current = mouse.x - _this.bounds.width / 2;
+      _this.renderedStyles.ty.previous = _this.renderedStyles.ty.previous = mouse.y - _this.bounds.height / 2;
+
+      _gsap.gsap.to(_this.DOM.el, {
+        duration: 0.9,
+        ease: "Power3.easeOut",
+        opacity: 1
+      });
+
+      requestAnimationFrame(function () {
+        return _this.render();
+      });
+      window.removeEventListener("mousemove", _this.onMouseMoveEv);
+    };
+
+    window.addEventListener("mousemove", this.onMouseMoveEv);
+  }
+
+  _createClass(Cursor, [{
+    key: "enter",
+    value: function enter() {
+      this.renderedStyles["scale"].current = 4.5;
+      this.renderedStyles["opacity"].current = 0.5;
+    }
+  }, {
+    key: "leave",
+    value: function leave() {
+      this.renderedStyles["scale"].current = 1;
+      this.renderedStyles["opacity"].current = 1;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      this.renderedStyles["tx"].current = mouse.x - this.bounds.width / 2;
+      this.renderedStyles["ty"].current = mouse.y - this.bounds.height / 2;
+
+      for (var key in this.renderedStyles) {
+        this.renderedStyles[key].previous = (0, _utils.lerp)(this.renderedStyles[key].previous, this.renderedStyles[key].current, this.renderedStyles[key].amt);
+      }
+
+      this.DOM.el.style.transform = "translateX(".concat(this.renderedStyles["tx"].previous, "px) translateY(").concat(this.renderedStyles["ty"].previous, "px) scale(").concat(this.renderedStyles["scale"].previous, ")");
+      this.DOM.el.style.opacity = this.renderedStyles["opacity"].previous;
+      requestAnimationFrame(function () {
+        return _this2.render();
+      });
+    }
+  }]);
+
+  return Cursor;
+}();
+
+exports.default = Cursor;
+},{"gsap":"node_modules/gsap/index.js","./utils":"js/utils.js"}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
 var _gsap = _interopRequireDefault(require("gsap"));
+
+var _TextPlugin = require("gsap/TextPlugin");
 
 var _splitting = _interopRequireDefault(require("splitting"));
 
 var _lodash = _interopRequireDefault(require("lodash.throttle"));
 
+var _cursor = _interopRequireDefault(require("./cursor"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var hero = document.querySelector("[data-hero]");
-/* Menu */
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
-var menuButton = document.querySelector('[data-btn="menu"]');
-var menu = document.querySelector("[data-menu]");
-menuButton.addEventListener("click", function () {
-  menu.classList.toggle("is-open");
-  menuButton.classList.toggle("is-active");
-});
-/* Cursor */
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-var onMouseMove = function onMouseMove(e) {
-  var clientX = e.clientX,
-      clientY = e.clientY;
-  var x = Math.round(clientX / window.innerWidth * 100);
-  var y = Math.round(clientY / window.innerHeight * 100);
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-  _gsap.default.to(hero, {
-    "--x": "".concat(x, "%"),
-    "--y": "".concat(y, "%"),
-    duration: 0.3,
-    ease: "sine.out"
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+_gsap.default.registerPlugin(_TextPlugin.TextPlugin);
+
+function heroIntro() {
+  var hero = document.querySelector("[data-hero]");
+  /* Menu */
+
+  var menuButton = document.querySelector('[data-btn="menu"]');
+  var menu = document.querySelector("[data-menu]");
+  menuButton.addEventListener("click", function () {
+    menu.classList.toggle("is-open");
+    menuButton.classList.toggle("is-active");
   });
-};
-/* Text animation */
+  /* Cursor */
+
+  var onMouseMove = function onMouseMove(e) {
+    var clientX = e.clientX,
+        clientY = e.clientY;
+    var x = Math.round(clientX / window.innerWidth * 103);
+    var y = Math.round(clientY / window.innerHeight * 103);
+
+    _gsap.default.to(hero, {
+      "--x": "".concat(x, "%"),
+      "--y": "".concat(y, "%"),
+      duration: 0.3,
+      ease: "sine.out"
+    });
+  };
+  /* Text animation */
 
 
-(0, _splitting.default)(); // Set initial text styles (before animation)
+  (0, _splitting.default)(); // Set initial text styles (before animation)
 
-_gsap.default.set(".hero--primary .char", {
-  opacity: 0,
-  y: 25
-});
-/* Timeline */
+  _gsap.default.set(".hero--primary .char", {
+    opacity: 0,
+    y: 25
+  });
+  /* Timeline */
 
 
-var tl = _gsap.default.timeline({
-  delay: 1
-});
+  var tl = _gsap.default.timeline({
+    delay: 1
+  });
 
-tl.to(".hero--primary .char", {
-  opacity: 1,
-  y: 0,
-  duration: 0.75,
-  stagger: 0.1
-}).to(hero, {
-  "--maskSize1": "20%",
-  duration: 0.5,
-  ease: "back.out(2)"
-}).to(hero, {
-  "--maskSize2": "28%",
-  "--maskSize3": "calc(28% + 0.1rem)",
-  duration: 0.5,
-  delay: 0.3,
-  ease: "back.out(2)"
-}).then(function () {
-  window.addEventListener("mousemove", (0, _lodash.default)(onMouseMove, 30));
-});
-},{"gsap":"node_modules/gsap/index.js","splitting":"node_modules/splitting/dist/splitting.js","lodash.throttle":"node_modules/lodash.throttle/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  tl.to(".hero--primary .char", {
+    opacity: 1,
+    y: 0,
+    duration: 0.75,
+    stagger: 0.1
+  }).to(hero, {
+    "--maskSize1": "20%",
+    duration: 0.5,
+    ease: "back.out(2)"
+  }).to(hero, {
+    "--maskSize2": "28%",
+    "--maskSize3": "calc(28% + 0.1rem)",
+    duration: 0.5,
+    delay: 0.3,
+    ease: "back.out(2)"
+  }).then(function () {
+    window.addEventListener("mousemove", (0, _lodash.default)(onMouseMove, 30));
+  });
+}
+
+setTimeout(function () {
+  document.body.classList.remove("loading");
+  heroIntro(); // Initialize custom cursor
+
+  var cursor = new _cursor.default(document.querySelector(".cursor")); // Mouse effects on all links
+
+  _toConsumableArray(document.querySelectorAll("a")).forEach(function (link) {
+    link.addEventListener("mouseenter", function () {
+      return cursor.enter();
+    });
+    link.addEventListener("mouseleave", function () {
+      return cursor.leave();
+    });
+  });
+
+  _toConsumableArray(document.querySelectorAll("button")).forEach(function (link) {
+    link.addEventListener("mouseenter", function () {
+      return cursor.enter();
+    });
+    link.addEventListener("mouseleave", function () {
+      return cursor.leave();
+    });
+  });
+}, 2000);
+},{"gsap":"node_modules/gsap/index.js","gsap/TextPlugin":"node_modules/gsap/TextPlugin.js","splitting":"node_modules/splitting/dist/splitting.js","lodash.throttle":"node_modules/lodash.throttle/index.js","./cursor":"js/cursor.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -6721,7 +7230,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51957" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54997" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

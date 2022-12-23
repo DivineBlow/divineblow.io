@@ -632,7 +632,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-{
+function card() {
   var lineEq = function lineEq(y2, y1, x2, x1, currentVal) {
     // y = mx + b 
     var m = (y2 - y1) / (x2 - x1),
@@ -1134,6 +1134,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     return document.body.classList.remove('loading');
   });
 }
+
+setTimeout(function () {
+  document.body.classList.remove('loading');
+  card();
+}, 2000);
 },{"imagesloaded":"node_modules/imagesloaded/imagesloaded.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -1162,7 +1167,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51957" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54997" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

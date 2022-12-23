@@ -1,6 +1,6 @@
 import imagesLoaded from "imagesloaded";
 
-{
+function card(){
     const lineEq = (y2, y1, x2, x1, currentVal) => {
         // y = mx + b 
         var m = (y2 - y1) / (x2 - x1), b = y1 - m * x1;
@@ -347,3 +347,8 @@ import imagesLoaded from "imagesloaded";
     // Preload all the images in the page..
     imagesLoaded(document.querySelectorAll('.box__img'), () => document.body.classList.remove('loading'));
 }
+
+setTimeout(() => {
+    document.body.classList.remove('loading');
+    card();
+}, 2000);

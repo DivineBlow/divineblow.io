@@ -123,10 +123,27 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ease = void 0;
-//
+exports.getMousePos = exports.lerp = exports.ease = void 0;
+
+// Linear interpolation
+var lerp = function lerp(a, b, n) {
+  return (1 - n) * a + n * b;
+}; // Gets the mouse position
+
+
+exports.lerp = lerp;
+
+var getMousePos = function getMousePos(e) {
+  return {
+    x: e.clientX,
+    y: e.clientY
+  };
+}; //
 // ease function for ShapeOverlays
 //
+
+
+exports.getMousePos = getMousePos;
 var ease = {
   exponentialIn: function exponentialIn(t) {
     return t == 0.0 ? t : Math.pow(2.0, 10.0 * (t - 1.0));
@@ -360,7 +377,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51957" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54997" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

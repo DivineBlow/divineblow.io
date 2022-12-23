@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,31 +10,12 @@
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Nunito:wght@600&&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<script>
 			document.documentElement.className = "js";
-			var supportsCssVars = function () {
-				var e,
-					t = document.createElement("style");
-				return (
-					(t.innerHTML = "root: { --tmp-var: bold; }"),
-					document.head.appendChild(t),
-					(e = !!(
-						window.CSS &&
-						window.CSS.supports &&
-						window.CSS.supports("font-weight", "var(--tmp-var)")
-					)),
-					t.parentNode.removeChild(t),
-					e
-				);
-			};
-			supportsCssVars() ||
-				alert(
-					"Please view this demo in a modern browser that supports CSS Variables."
-				);
 		</script>
 	</head>
-	<body>
+	<body class="loading">
 		<main>
 			<div class="content">
 				<!-- the content -->
@@ -63,9 +44,9 @@
 					<div class="hero hero--primary">
 						<div class="container">
 							<h1 class="hero__heading" data-splitting>
-								Hi! I'm Sebi<br />Front-end Dev.<br /><span class="country"
-									>Russia/Anywhere</span
-								>
+								HI!<br /> I'M SEBI.<br />
+								SOFTWARE DEV.<br />
+								<span class="country">Russia / Saint-Petersburg</span>
 							</h1>
 							<span></span>
 						</div>
@@ -74,14 +55,17 @@
 					<div class="hero hero--secondary" aria-hidden="true" data-hero>
 						<div class="container">
 							<p class="hero__heading" data-splitting>
-								I'm happy to see you<br />Here.<br />
+								Приятно познакомиться!<br />
 							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
-
+		
+		<svg class="cursor" width="30" height="30" viewBox="0 0 30 30">
+			<circle class="cursor__inner" cx="15" cy="15" r="7.5"/>
+		</svg>
 		<script src="js/index.js"></script>
 	</body>
 </html>
